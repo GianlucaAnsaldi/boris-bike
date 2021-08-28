@@ -56,11 +56,11 @@ describe DockingStation do
       expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
     end
 
-    it "has a variable capacity" do
-      docking_station = DockingStation.new(50)
-      50.times { docking_station.dock Bike.new }
-      expect { docking_station.dock Bike.new }.to raise_error("The station is full")
-    end
+    # it "has a variable capacity" do
+    #   docking_station = DockingStation.new(50)
+    #   50.times { docking_station.dock Bike.new }
+    #   expect { docking_station.dock Bike.new }.to raise_error("The station is full")
+    # end
 
     subject { DockingStation.new }
     let(:bike) { Bike.new}
