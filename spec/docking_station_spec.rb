@@ -30,8 +30,6 @@ describe DockingStation do
 
   it "docks something" do
     bike = Bike.new
-    p bike.class
-    p subject.dock(bike).class
     expect(subject.dock(bike)).to include bike # bike is a Bike, subject.dock(bike) is an Array, how can they be equal??? 
     # to include instead of to eq maybe???
   end
@@ -43,15 +41,16 @@ describe DockingStation do
   it "returns docked bikes" do
     bike = Bike.new
     subject.dock(bike)
-    expect(subject.bikes).to include bike# bike is a Bike, subject.dock(bike) is an Array, how can they be equal??? 
-    # to include instead of to eq maybe???
+    expect(subject.bikes).to eq([bike]) # or I can keep ".to eq" and enclose "bike" into an array like this ".to eq([bike])"
   end
 
   describe "#dock" do
-    it "raises an error if there is alrady a bike docked" do
-      # bike = Bike.new
-      20.times { subject.dock Bike.new }
-      expect { subject.dock Bike.new }.to raise_error("there is already a bike docked here")
+    it "raises an error if the station is full" do
+      # 20.times { subject.dock Bike.new }
+      DockingStation::DEFAULT_CAPACITY.times do
+        subject.dock Bike.new
+      end
+      expect { subject.dock Bike.new }.to raise_error("The station is full")
     end
   end
 end
